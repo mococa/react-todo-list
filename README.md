@@ -1,3 +1,17 @@
+# About the project
+
+Again, wanting to improve on React, so I came with another project. A simple but responsive Todo List from JSON, with a nice looking UI made from scratch.
+
+### Screenshots
+
+#### Web
+
+![Web](./src/images/print1.png)
+
+#### Mobile
+
+![Mobile](./src/images/print2.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
