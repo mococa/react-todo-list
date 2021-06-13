@@ -2,6 +2,8 @@
 
 Again, wanting to improve on React, so I came with another project. A simple but responsive Todo List from JSON, with a nice looking UI made from scratch.
 
+You can check it out here: https://mococa.github.io/react-todo-list/
+
 ### Screenshots
 
 #### Web
