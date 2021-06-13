@@ -9,7 +9,10 @@ function App() {
     const [todos,setTodos] = useState([])
 
     function deleteTask(i){
-        setTodos(todos.filter((x,index)=>index!==i))
+        // eslint-disable-next-line no-restricted-globals
+        confirm(`Do you really want to remove this ${todos[i].topic} task from your list?`)
+        && setTodos(todos.filter((x,index)=>index!==i))
+         
     }
     return (
         <>
