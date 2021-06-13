@@ -49,6 +49,7 @@ body {
     flex-flow: column;
     gap: 20px;
     padding: 40px;
+    min-height: calc(100vh - 2*60px - 48px - 3*20px - 1px);
 }
 
 .card-container {
@@ -125,4 +126,25 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 24px;
+}
+
+
+/* FOOTER */
+
+#root>footer {
+    display: flex;
+    background-color: #1d1d1d;
+}
+
+#root>footer h3 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    color: white;
+}
+
+#root>footer a {
+    text-transform: none;
+    text-decoration: none;
 }
