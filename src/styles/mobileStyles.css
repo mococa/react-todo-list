@@ -2,4 +2,8 @@
     .card {
         max-width: unset;
     }
+    .modal {
+        width: 90%;
+        left: 5%;
+    }
 }
