@@ -14,11 +14,13 @@ export const TodoProvider = (props) => {
     localStorage.setItem('todos', JSON.stringify([...todos, todo]))
   }
   function removeTodo(i) {
+    const newTodos = todos.filter((x, index) => index !== i)
     // eslint-disable-next-line no-restricted-globals
     confirm(
       `Do you really want to remove this ${todos[i].topic} task from your list?`
-    ) && setTodos(todos.filter((x, index) => index !== i));
-    localStorage.setItem('todos', JSON.stringify(todos))
+    ) && setTodos(newTodos);
+  
+    localStorage.setItem('todos', JSON.stringify(newTodos))
   }
   function editTodo(todo, i) {
     if (!todo.topic) return alert("Topic field missing");
