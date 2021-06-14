@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { ThemeContext } from "../providers/theme";
 import { TodoContext } from "../providers/todos";
 function Card({ data, index }) {
   const { removeTodo, setTodoIndex } = React.useContext(TodoContext);
-  
+  const {getTheme} = React.useContext(ThemeContext)
+  const theme = getTheme().card
   return (
     <>
-      <div className="card" style={{ borderTop: `4px solid ${data.color}` }}>
-        <span className="topic" style={{ backgroundColor: data.color }}>
+      <div className="card" style={{ borderTop: `4px solid ${data.color}` , backgroundColor:theme.background, color:theme.color}}>
+        <span className="topic" style={{ backgroundColor: data.color, color:theme.topic }}>
           {data.topic}
         </span>
 
