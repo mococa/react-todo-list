@@ -1,14 +1,25 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { TodoContext } from '../providers/todos';
+import Modal from './Modal';
 
-function Header({fn}) {
+function Header() {
+    const [showModal, setShowModal] = useState(false)
+    const {setTodoIndex} = React.useContext(TodoContext)
+    const handleClick = () =>{
+        setTodoIndex(-1)
+        setShowModal(true)
+    }
     return (
-        <header className="header">
-            <h1>Todo List</h1>
-            
-            <button className="clickable" onClick={fn}>
-                Create Task
-            </button>
-        </header>
+        <>
+            <header className="header">
+                <h1>Todo List</h1>
+
+                <button className="clickable" onClick={handleClick}>
+                    Create Task
+                </button>
+            </header>
+            {showModal  && <Modal close={()=>setShowModal(false)}/>}
+        </>
     )
 }
 

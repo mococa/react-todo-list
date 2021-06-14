@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
+import { TodoContext } from "../providers/todos";
+import useKey from '../hooks/onKey';
 
-function Modal({todos, fn ,todo, index}) {
-    function modalButton(){
-        if(todo === undefined){
-            //Add todo
-            if(!myTodo.topic) return alert("Topic field missing")
-            if(!myTodo.description) return alert("Description field missing")
-            fn.setTodos([...todos, myTodo])
-            fn.setShowModal(false)
-            
+function Modal({close, index }) {
 
-        }else{
-            //Edit todo
-            
-            fn.editTodo(index, myTodo)
-            
-
-        }
-    }
+  
+  const {addTodo, editTodo, todos, setTodoIndex} = React.useContext(TodoContext)
+  
   const availableColors = [
     "#ff5555",
     "#ffc155",
@@ -38,39 +27,53 @@ function Modal({todos, fn ,todo, index}) {
       border: i === selectedColor ? "3px solid #1d1d1d" : "none",
     };
   };
-  
-  const [selectedColor, setSelectedColor] = useState(0);
-  setColor()
+  const colIndex = () =>{
+    if([-1,undefined].includes(index)){
+      return 0
+    }else{
+      return availableColors.indexOf(todos[index].color)
+    }
+  }
+  const [selectedColor, setSelectedColor] = useState(colIndex());
+ 
   const [myTodo, setMyTodo] = useState({
-    topic: todo===undefined?"":todo.topic,
-    description: todo===undefined?"":todo.description,
+    topic: [-1,undefined].includes(index)?"":todos[index].topic,
+    description: [-1,undefined].includes(index)?"":todos[index].description,
     color: availableColors[selectedColor]
   })
-  function setColor(i){
-    if(todo !== undefined){
-      //EDITING TASK
-      setSelectedColor(availableColors.findIndex(x=>todo.color))
+  const modalAddEdit = () =>{
+    if([-1,undefined].includes(index)){
+      addTodo(myTodo)
+    }else{
+      editTodo(myTodo, index)
     }
+    close()
+  }
+  function setColor(i){
     if(i !== undefined){
       setSelectedColor(i)
       setMyTodo({...myTodo, color:availableColors[i]})
     }
-  }
+      
+    }
+    useKey('Escape', ()=>{
+      close()
+    })
   return (
     <div className="modal">
       <div className="top">
-        <span>{todo===undefined?"New Task":"Edit Task"}</span>
-        <MdClose size={16} className="clickable" onClick={()=>fn.setShowModal(false)}/>
+        <span>{[-1,undefined].includes(index)?"New Task":"Edit Task"}</span>
+        <MdClose size={16} className="clickable" onClick={close}/>
       </div>
       <div className="body">
       <label>
         Topic:
       </label>
-      <input type="text" defaultValue={todo===undefined?"":myTodo.topic} onChange={e=>setMyTodo({...myTodo, topic:e.target.value})}/>
+      <input type="text" defaultValue={[-1,undefined].includes(index)?"":myTodo.topic} onChange={e=>setMyTodo({...myTodo, topic:e.target.value})}/>
       <label>
         Description:
       </label>
-      <textarea defaultValue={todo===undefined?"":myTodo.description} onChange={e=>setMyTodo({...myTodo, description:e.target.value})}></textarea>
+      <textarea defaultValue={[-1,undefined].includes(index)?"":myTodo.description} onChange={e=>setMyTodo({...myTodo, description:e.target.value})}></textarea>
       <label>
         Color:
         <div style={{ display: "flex", gap: "5px" }}>
@@ -83,9 +86,8 @@ function Modal({todos, fn ,todo, index}) {
           ))}
         </div>
       </label>
-      <button className="clickable"onClick={modalButton}>{todo===undefined?"Add Todo":"Edit Todo"}</button>
+      <button className="clickable" onClick={modalAddEdit}>{[-1,undefined].includes(index)?"Add Todo":"Edit Todo"}</button>
       </div>
-      
     </div>
   );
 }
