@@ -9,20 +9,6 @@ body {
 }
 
 
-/* DEFAULT */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.clickable:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-}
-
-
 /* HEADER */
 
 #root>.header {

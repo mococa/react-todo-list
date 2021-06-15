@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { MdClose } from "react-icons/md";
 import { TodoContext } from "../providers/todos";
 import useKey from '../hooks/onKey';
@@ -7,7 +7,7 @@ function Modal({close, index }) {
 
   
   const {addTodo, editTodo, todos, setTodoIndex} = React.useContext(TodoContext)
-  
+  const textRef = useRef();
   const availableColors = [
     "#ff5555",
     "#ffc155",
@@ -59,6 +59,11 @@ function Modal({close, index }) {
     useKey('Escape', ()=>{
       close()
     })
+    
+    useKey('Enter', ()=>{
+      if(document.activeElement === textRef.current) textRef.current.value += "  - "
+    }) 
+
   return (
     <div className="modal">
       <div className="top">
@@ -73,7 +78,7 @@ function Modal({close, index }) {
       <label>
         Description:
       </label>
-      <textarea defaultValue={[-1,undefined].includes(index)?"":myTodo.description} onChange={e=>setMyTodo({...myTodo, description:e.target.value})}></textarea>
+      <textarea rows="5" ref={textRef} onFocus={()=>{if([-1,undefined].includes(index) && textRef.current.value === "") textRef.current.value = "  - " } } defaultValue={[-1,undefined].includes(index)?"":myTodo.description} onChange={e=>setMyTodo({...myTodo, description:e.target.value})}></textarea>
       <label>
         Color:
         <div style={{ display: "flex", gap: "5px" }}>

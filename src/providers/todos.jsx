@@ -6,11 +6,19 @@ export const TodoProvider = (props) => {
   const [todos, setTodos] = useState([]);
   const [todoIndex, setTodoIndex] = useState(-1);
 
+  // eslint-disable-next-line no-extend-native
+  Array.prototype.sorted = function(on){
+    return this.sort(function(a, b){
+      if(a[on] < b[on]) { return -1; }
+      if(a[on] > b[on]) { return 1; }
+      return 0;
+      })
+  }
 
   function addTodo(todo) {
     if (!todo.topic) return alert("Topic field missing");
     if (!todo.description) return alert("Description field missing");
-    setTodos([...todos, todo]);
+    setTodos([...todos, todo].sorted('topic'));
     localStorage.setItem('todos', JSON.stringify([...todos, todo]))
   }
   function removeTodo(i) {
@@ -27,14 +35,14 @@ export const TodoProvider = (props) => {
     if (!todo.description) return alert("Description field missing");
     const _todos = todos;
     _todos[i] = todo;
-    setTodos(_todos);
+    setTodos(_todos.sorted('topic'))
     localStorage.setItem('todos', JSON.stringify(_todos))
   }
 
   useEffect(()=>{
       const todoStorage = localStorage.getItem('todos')
       if(todoStorage && todoStorage !== "[]"){
-          setTodos(JSON.parse(todoStorage))
+          setTodos(JSON.parse(todoStorage).sorted('topic'))
       }else{
           setTodos([])
       }
