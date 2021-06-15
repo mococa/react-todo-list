@@ -25,7 +25,7 @@ function Card({ data, index }) {
           {data.topic}
         </span>
 
-        <span style={{"flex":"1","margin":"0px 5px","whiteSpace":"pre-line","overflow":"hidden auto"}}>
+        <span style={{"flex":"1","margin":"10px","whiteSpace":"pre-line","overflow":"hidden auto"}}>
           {data.description}
         </span>
 
