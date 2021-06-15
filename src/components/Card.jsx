@@ -8,7 +8,8 @@ function Card({ data, index }) {
   const [checked, setChecked] = useState(data.checked || false)
   const theme = getTheme().card
 
-  function check(){
+  function check(e){
+    if(e.target.closest('svg')) return
     setChecked(!checked)
     editTodo({...data, checked:!checked}, index)
     console.log({...data, checked:!checked})
@@ -19,7 +20,7 @@ function Card({ data, index }) {
         { borderTop: `4px solid ${data.color}`,
           backgroundColor:theme.background,
           color:theme.color}
-        } onClick={check}>
+        } onClick={(e)=>check(e)}>
         <span className="topic" style={{ backgroundColor: data.color, color:theme.topic }}>
           {data.topic}
         </span>
@@ -41,7 +42,7 @@ function Card({ data, index }) {
             size={24}
             fill={data.color}
             strokeWidth={0.15}
-            onClick={()=>removeTodo(index)}
+            onClick={()=>{removeTodo(index)}}
           />
         </footer>
       </div>
