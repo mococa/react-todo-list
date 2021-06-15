@@ -73,6 +73,22 @@ body {
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
+.card.done {
+    filter: contrast(0.5);
+}
+
+.card.done::after {
+    content: '';
+    width: 100px;
+    height: 100px;
+    transform: translate(60%, 30%);
+    background-image: url(../images/check-mark-emoji.png );
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    display: flex;
+}
+
 .card .topic {
     filter: brightness(200%);
     color: black;

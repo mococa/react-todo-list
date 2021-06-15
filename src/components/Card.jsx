@@ -3,12 +3,23 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { ThemeContext } from "../providers/theme";
 import { TodoContext } from "../providers/todos";
 function Card({ data, index }) {
-  const { removeTodo, setTodoIndex } = React.useContext(TodoContext);
+  const { removeTodo, setTodoIndex, editTodo } = React.useContext(TodoContext);
   const {getTheme} = React.useContext(ThemeContext)
+  const [checked, setChecked] = useState(data.checked || false)
   const theme = getTheme().card
+
+  function check(){
+    setChecked(!checked)
+    editTodo({...data, checked:!checked}, index)
+    console.log({...data, checked:!checked})
+  }
   return (
     <>
-      <div className="card" style={{ borderTop: `4px solid ${data.color}` , backgroundColor:theme.background, color:theme.color}}>
+      <div className={`card ${checked && "done"}`} style={
+        { borderTop: `4px solid ${data.color}`,
+          backgroundColor:theme.background,
+          color:theme.color}
+        } onClick={check}>
         <span className="topic" style={{ backgroundColor: data.color, color:theme.topic }}>
           {data.topic}
         </span>
